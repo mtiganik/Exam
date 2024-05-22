@@ -1,0 +1,22 @@
+[
+  {
+    "Id": "81b11f5b-58ce-403b-a7bf-f08b86122474",
+    "CategoryName": "Home",
+    "CategorySort": 1
+  },
+  {
+    "Id": "19062e4a-a402-414a-987a-780c00d31d22",
+    "CategoryName": "School",
+    "CategorySort": 2
+  },
+  {
+    "Id": "e72137ec-5e67-4ddb-af08-38a3d1d9044d",
+    "CategoryName": "Work",
+    "CategorySort": 3
+  },
+  {
+    "Id": "b273ec31-862c-471f-874e-1aafcd784f8a",
+    "CategoryName": "Other",
+    "CategorySort": 4
+  }
+]
