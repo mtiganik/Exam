@@ -1,4 +1,6 @@
 ﻿using Domain;
+using Microsoft.EntityFrameworkCore;
+using MigrationProject;
 using Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,6 +12,13 @@ namespace Services.Implementation
 {
     public class TodoPriorityService : ITodoPriorityService
     {
+        private readonly AppDbContext _Context;
+
+        public TodoPriorityService(AppDbContext Context)
+        {
+            _Context = Context;
+        }
+
         public Task<int> CreateAsync(TodoPriority todoPriority)
         {
             throw new NotImplementedException();
@@ -20,9 +29,10 @@ namespace Services.Implementation
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<TodoPriority>> GetAllAsync()
+        public async Task<IEnumerable<TodoPriority>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var res = await _Context.TodoPriorities.ToListAsync();
+            return res;
         }
 
         public Task<TodoPriority> GetById(Guid Id)

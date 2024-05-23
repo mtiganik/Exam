@@ -1,7 +1,9 @@
-using DbConnection;
+
 using Microsoft.EntityFrameworkCore;
+using MigrationProject;
 using Services.Implementation;
 using Services.Interfaces;
+using WebApp.SeedData;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +27,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+await SeedData.SetupAppData(app);
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
