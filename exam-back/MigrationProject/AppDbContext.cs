@@ -17,6 +17,8 @@ namespace MigrationProject
         public DbSet<Subject> Subjects{ get; set; } = default!;
         public DbSet<UserInSubject> UsersInSubject { get; set; } = default!;
         public DbSet<UserRoleInSubject> UsersRoleInSubject { get; set; } = default!;
+        public DbSet<AppRefreshToken> RefreshTokens { get; set; } = default!;
+
         //public DbSet<TodoPriority> TodoPriorities { get; set; } = default!;
         //public DbSet<TodoCategory> TodoCategories { get; set; } = default!;
         //public DbSet<Todo> Todos { get; set; } = default!;

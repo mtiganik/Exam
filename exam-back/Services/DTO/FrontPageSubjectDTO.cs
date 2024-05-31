@@ -13,7 +13,7 @@ namespace Services.DTO
         public string? Description { get; set; }
         public string? Teacher { get; set; }
         public int? StudentsCnt { get; set; }
-
+        public string? SubjectId { get; set; }
         public string? SemesterName { get; set; } 
 
     }

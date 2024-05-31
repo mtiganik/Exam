@@ -22,7 +22,10 @@ namespace Services.Implementation
         public async Task<IEnumerable<FrontPageSubjectDTO>> GetFrontPageSubjects()
         {
             List<FrontPageSubjectDTO> res = new List<FrontPageSubjectDTO>();
-            var subs = await _context.Subjects.ToListAsync();
+            var subs = await _context.Subjects
+                .Include(p => p.Semester)
+                .Include(p => p.UsersInSubject)
+                .ToListAsync();
 
             foreach (var el in subs)
             {

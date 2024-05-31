@@ -7,6 +7,7 @@ using MigrationProject;
 using Services.Implementation;
 using Services.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
+using WebApp2.Auth;
 using WebApp2.Helpers;
 using WebApp2.SeedData;
 
@@ -50,7 +51,10 @@ builder.Services
 
 builder.Services.AddScoped<IUserGetter, UserGetter>();
 builder.Services.AddScoped<IFrontPageService, FrontPageService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IStudentService, StudentService>();
 
+builder.Services.Configure<JwtAuthConfig>(builder.Configuration.GetSection("Jwt"));
 
 builder.Services.Configure<IdentityOptions>(options =>
 {

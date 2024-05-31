@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ApiControllers\" />
     <Folder Include="SeedData\csv\" />
   </ItemGroup>
 

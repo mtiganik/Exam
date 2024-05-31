@@ -35,7 +35,9 @@ namespace Services.Implementation
                     SubjectName = hfs.Homework.Subject.Title,
                     GradeAsString = hfs.Grade.GradeName,
                     SubjectId = hfs.Homework.Subject.Id,
-                    StudentName = currUser.FirstName + currUser.LastName
+                    StudentName = currUser.FirstName + currUser.LastName,
+                    
+                    
                 }).ToListAsync();
             return homeworks;
 
@@ -49,6 +51,7 @@ namespace Services.Implementation
                 .Where(u => u.UserId == currUser.Id)
                 .Select(u => new StudentSubjectsDTO
                 {
+                    SubjectId = u.SubjectId.ToString(),
                     SemesterName = u.Subject.Semester.SemesterName,
                     Description = u.Subject.Description,
                     Title = u.Subject.Title,
