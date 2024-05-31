@@ -19,7 +19,9 @@ namespace WebApp2.SeedData
             context.Database.Migrate();
 
             if (!context.Users.Any())
+            //if (true)
             {
+                
                 using var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
                 using var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<AppRole>>();
 
@@ -30,7 +32,9 @@ namespace WebApp2.SeedData
                 var admin = new AppUser()
                 {
                     Email = "mtiganik@gmail.com",
-                    UserName = "mtiganik@gmail.com"
+                    UserName = "mtiganik@gmail.com",
+                    FirstName = "Mihkel",
+                    LastName = "Muhkel"
                 };
                 admin.Id = new Guid("ddcefa48-5a53-48fb-9d12-85636ff2c55e");
                 await userManager.CreateAsync(admin, "qwerty");
@@ -53,6 +57,8 @@ namespace WebApp2.SeedData
                     await userManager.CreateAsync(user, user.Email!);
                     await userManager.AddToRoleAsync(user, "Student");
                 }
+                await context.SaveChangesAsync();
+                
                 string semesterNameJson = File.ReadAllText("SeedData/json/semester-name.json");
                 string userRoleInSubjectJson = File.ReadAllText("SeedData/json/user-role-in-subject.json");
                 string gradeJson = File.ReadAllText("SeedData/json/grades.json");

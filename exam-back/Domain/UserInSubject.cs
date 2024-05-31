@@ -12,7 +12,7 @@ namespace Domain
     {
         public bool IsAccepted { get; set; } = default!;
         public bool IsCompleted { get; set; } = default!;
-        public Grade? FinalGradeId { get; set; } = default!;   
+        public Guid? FinalGradeId { get; set; } = default!;   
         public Guid UserId { get; set; }
         public AppUser User { get; set; } = default!;
         public Guid SubjectId { get; set; }

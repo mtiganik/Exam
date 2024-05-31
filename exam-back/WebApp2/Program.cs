@@ -4,7 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MigrationProject;
+using Services.Implementation;
+using Services.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
+using WebApp2.Helpers;
 using WebApp2.SeedData;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -43,6 +46,11 @@ builder.Services
             ClockSkew = TimeSpan.Zero // remove delay of token when expire
         };
     });
+
+
+builder.Services.AddScoped<IUserGetter, UserGetter>();
+builder.Services.AddScoped<IFrontPageService, FrontPageService>();
+
 
 builder.Services.Configure<IdentityOptions>(options =>
 {

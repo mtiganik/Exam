@@ -15,7 +15,7 @@
   },
   {
     "Id": "1b918a38-3cba-4da3-81f4-10d361da36d0",
-    "Title": "�is",
+    "Title": "Õis",
     "Description": "Uue Õisi loomine",
     "Deadline": "2023-11-17 00:00:00.000Z",
     "SubjectId": "d218aaef-7ac3-4374-a03e-d457caf173ed"
@@ -32,13 +32,13 @@
     "Title": "Atari breakout",
     "Description": "Create Atari breakout game",
     "Deadline": "2024-02-24 00:00:00.000Z",
-    "SubjectId": "8c3756c7-7f21-43b3-a40b-f3f17f2016ac"
+    "SubjectId": "0adc3492-0db3-4e8e-8e36-ebe1a41cd31d"
   },
   {
     "Id": "c11d20f0-58a9-4391-8541-d6603f38bfca",
     "Title": "Todo App",
     "Description": "Use Käver swagger to do front end",
     "Deadline": "2024-04-27 00:00:00.000Z",
-    "SubjectId": "8c3756c7-7f21-43b3-a40b-f3f17f2016ac"
+    "SubjectId": "0adc3492-0db3-4e8e-8e36-ebe1a41cd31d"
   }
 ]

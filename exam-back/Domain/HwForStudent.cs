@@ -10,6 +10,7 @@ namespace Domain
     public class HwForStudent : BaseEntityId
     {
         public DateTime? DateDone { get; set; }
+        public Guid? GradeId { get; set; } = default!;
         public Grade Grade { get; set; } = default!;
         public bool IsDone { get; set; } 
         public Guid HomeWorkId { get; set; } = default!;

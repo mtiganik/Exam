@@ -5,7 +5,7 @@
     "UserInSubjectId": "ffb13a34-dd90-46b5-b252-22cae92478d8",
     "IsDone": true,
     "DateDone": "2023-09-17 00:00:00.000Z",
-    "Grade": "78438002-9ab5-4791-98c6-4d96704974bb"
+    "GradeId": "78438002-9ab5-4791-98c6-4d96704974bb"
   },
   {
     "Id": "f86b6d39-89fc-4171-a740-8a657e59f08b",
@@ -13,7 +13,7 @@
     "UserInSubjectId": "6aa70b00-9e42-4411-900c-cc62fea37dd2",
     "IsDone": true,
     "DateDone": "2023-09-21 00:00:00.000Z",
-    "Grade": "78438002-9ab5-4791-98c6-4d96704974bb"
+    "GradeId": "78438002-9ab5-4791-98c6-4d96704974bb"
   },
   {
     "Id": "9dd8fd48-38ab-42a7-81a5-da4e271d442c",
@@ -21,7 +21,7 @@
     "UserInSubjectId": "f6abc90e-0ae0-4594-b887-99cd026e000a",
     "IsDone": true,
     "DateDone": "2023-09-14 00:00:00.000Z",
-    "Grade": "e88a4bcd-b09d-4c11-b33a-e9839e529300"
+    "GradeId": "e88a4bcd-b09d-4c11-b33a-e9839e529300"
   },
   {
     "Id": "21e53f57-ae29-4f04-85ba-5a13af92e6c1",
@@ -29,7 +29,7 @@
     "UserInSubjectId": "ffb13a34-dd90-46b5-b252-22cae92478d8",
     "IsDone": true,
     "DateDone": "2023-09-21 00:00:00.000Z",
-    "Grade": "e88a4bcd-b09d-4c11-b33a-e9839e529300"
+    "GradeId": "e88a4bcd-b09d-4c11-b33a-e9839e529300"
   },
   {
     "Id": "069ce0cf-d393-402e-a7c4-7a361bf1582d",
@@ -37,7 +37,7 @@
     "UserInSubjectId": "6aa70b00-9e42-4411-900c-cc62fea37dd2",
     "IsDone": false,
     "DateDone": null,
-    "Grade": null
+    "GradeId": null
   },
   {
     "Id": "785ccd73-19fb-4eea-a409-388d01bcf6b1",
@@ -45,7 +45,7 @@
     "UserInSubjectId": "f6abc90e-0ae0-4594-b887-99cd026e000a",
     "IsDone": false,
     "DateDone": null,
-    "Grade": null
+    "GradeId": null
   },
   {
     "Id": "787112e5-9bda-4dd7-a85e-1ea56f7c8f26",
@@ -53,7 +53,7 @@
     "UserInSubjectId": "ffb13a34-dd90-46b5-b252-22cae92478d8",
     "IsDone": false,
     "DateDone": null,
-    "Grade": null
+    "GradeId": null
   },
   {
     "Id": "5b58d09b-bb07-496b-8d7c-54804e3460da",
@@ -61,7 +61,7 @@
     "UserInSubjectId": "6aa70b00-9e42-4411-900c-cc62fea37dd2",
     "IsDone": false,
     "DateDone": null,
-    "Grade": null
+    "GradeId": null
   },
   {
     "Id": "e94a5a4e-7fa3-471d-9801-47be2b047bfd",
@@ -69,6 +69,6 @@
     "UserInSubjectId": "f6abc90e-0ae0-4594-b887-99cd026e000a",
     "IsDone": false,
     "DateDone": null,
-    "Grade": null
+    "GradeId": null
   }
 ]
