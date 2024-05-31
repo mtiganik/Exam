@@ -1,95 +1,45 @@
+"use client"
+import { useState, useEffect } from "react";
+import { FrontPageData } from "@/domain/frontPageData";
+import LoadingImd from "@/assets/loading/loading-50.gif"
+import FrontPageService from "@/services/frontPageService";
 import Image from "next/image";
-import styles from "./page.module.css";
-
 export default function Home() {
+  const [subs, setSubs] = useState<FrontPageData[] | null>();
+  const [isLoading, setIsLoading] = useState(true)
+  
+  const loadData = async() => {
+    try{
+      const res = await FrontPageService.GetFrontPageSubs();
+      setSubs(res);
+      setIsLoading(false)
+    }catch(error){
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    loadData();
+  } ,[])
+  if(isLoading) return(<Image src={LoadingImd} priority={true} alt="loading"/>) 
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <div>
+      <h5> Available Subjects</h5>
+      {subs && (
+        <>
+        {subs.map((sub) => (
+          <div className="container" key={sub.Title}>
+            <h6>{sub.Title}</h6>
+            <div>Description: {sub.Description}</div>
+            <div>Students: {sub.StudentsCnt}</div>
+            <div>Teacher: {sub.Teacher}</div>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+          </div>
+        ))}
+        </>
+      )}
+    </div>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  );
+);
 }
