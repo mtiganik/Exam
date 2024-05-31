@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MigrationProject;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MigrationProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240531123826_typoWithGrades2")]
+    partial class typoWithGrades2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,7 +75,7 @@ namespace MigrationProject.Migrations
                     b.Property<DateTime?>("DateDone")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid?>("GradeId")
+                    b.Property<Guid>("GradeId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("HomeWorkId")
@@ -508,7 +511,9 @@ namespace MigrationProject.Migrations
                 {
                     b.HasOne("Domain.Grade", "Grade")
                         .WithMany("HwsForStudent")
-                        .HasForeignKey("GradeId");
+                        .HasForeignKey("GradeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Domain.Homework", "Homework")
                         .WithMany("HwForStudents")

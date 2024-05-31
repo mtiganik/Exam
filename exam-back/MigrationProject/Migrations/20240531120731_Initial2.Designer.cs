@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MigrationProject;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MigrationProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240531120731_Initial2")]
+    partial class Initial2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,7 +75,7 @@ namespace MigrationProject.Migrations
                     b.Property<DateTime?>("DateDone")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid?>("GradeId")
+                    b.Property<Guid>("GradeId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("HomeWorkId")
@@ -356,10 +359,7 @@ namespace MigrationProject.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("FinalGradeId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("GradeId")
+                    b.Property<Guid?>("FinalGradeIdId")
                         .HasColumnType("uuid");
 
                     b.Property<bool>("IsAccepted")
@@ -379,7 +379,7 @@ namespace MigrationProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GradeId");
+                    b.HasIndex("FinalGradeIdId");
 
                     b.HasIndex("SubjectId");
 
@@ -508,7 +508,9 @@ namespace MigrationProject.Migrations
                 {
                     b.HasOne("Domain.Grade", "Grade")
                         .WithMany("HwsForStudent")
-                        .HasForeignKey("GradeId");
+                        .HasForeignKey("GradeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Domain.Homework", "Homework")
                         .WithMany("HwForStudents")
@@ -587,9 +589,9 @@ namespace MigrationProject.Migrations
 
             modelBuilder.Entity("Domain.UserInSubject", b =>
                 {
-                    b.HasOne("Domain.Grade", null)
+                    b.HasOne("Domain.Grade", "FinalGradeId")
                         .WithMany("UsersInSubject")
-                        .HasForeignKey("GradeId");
+                        .HasForeignKey("FinalGradeIdId");
 
                     b.HasOne("Domain.Subject", "Subject")
                         .WithMany("UsersInSubject")
@@ -608,6 +610,8 @@ namespace MigrationProject.Migrations
                         .HasForeignKey("UserRoleInSubjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("FinalGradeId");
 
                     b.Navigation("Subject");
 
