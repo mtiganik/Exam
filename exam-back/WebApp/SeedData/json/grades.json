@@ -1,0 +1,30 @@
+[
+  {
+    "Id": "78438002-9ab5-4791-98c6-4d96704974bb",
+    "GradeName": "A"
+  },
+  {
+    "Id": "8e07c659-953a-4247-9d8e-9c1a3c2d955c",
+    "GradeName": "B"
+  },
+  {
+    "Id": "e88a4bcd-b09d-4c11-b33a-e9839e529300",
+    "GradeName": "C"
+  },
+  {
+    "Id": "3618524b-f0c5-4404-a5aa-3d070a98e191",
+    "GradeName": "D"
+  },
+  {
+    "Id": "1bb074d5-0c52-4661-a0bc-29b1c36d81b3",
+    "GradeName": "E"
+  },
+  {
+    "Id": "449bc784-88d4-447d-b1f9-16bfad70571a",
+    "GradeName": "F"
+  },
+  {
+    "Id": "e4fef648-06cb-422f-a7db-a663520650fe",
+    "GradeName": "MI"
+  }
+]

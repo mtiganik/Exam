@@ -14,6 +14,6 @@ namespace Domain
         public DateTime? Deadline { get; set; }
         public Guid SubjectId { get; set; }
         public Subject Subject { get; set; } = default!;
-        public IEnumerable<HwForStudent> HwForStudents { get; set; } = default!;
+        public ICollection<HwForStudent> HwForStudents { get; set; } = default!;
     }
 }

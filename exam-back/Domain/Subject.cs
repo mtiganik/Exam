@@ -16,8 +16,8 @@ namespace Domain
         public Guid SemesterId { get; set; }
         public Semester Semester { get; set; } = default!;
         //public AppUser Teacher { get; set; } = default!;
-        public IEnumerable<Homework>? Homeworks { get; set; }
-        public IEnumerable<UserInSubject>? UsersInSubject { get; set; }
+        public ICollection<Homework>? Homeworks { get; set; }
+        public ICollection<UserInSubject>? UsersInSubject { get; set; }
 
     }
 }

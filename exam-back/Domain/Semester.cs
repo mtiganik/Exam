@@ -10,5 +10,6 @@ namespace Domain
     public class Semester : BaseEntityId
     {
         public string SemesterName { get; set; } = default!;
+        public int Sort { get; set; } = default!;
     }
 }
