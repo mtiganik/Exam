@@ -2,16 +2,19 @@
 import { useState,useContext } from "react"
 import LoginService from "@/services/loginService";
 import { UserContext, IUserContext } from "@/state/UserContext";
-
+import { useRouter } from "next/navigation";
 export default function Login() {
   const [email,setEmail] = useState("");
   const [pw, setPw] = useState("");
+  const router = useRouter();
+
   const { userData, setUserData } = useContext(UserContext) as IUserContext;
 
   const handleLogin =async() =>{
     try{
       var res = await LoginService.Login(email,pw)
       setUserData(res)
+      router.push("/my-subjects");
     }catch(error){
       console.log(error)
     }

@@ -12,9 +12,13 @@ export default class FrontPageService{
   :Promise<FrontPageData[]>
   {
     try{
-      const response = 
-      await FrontPageService.httpClient
-      .get<FrontPageData[]>("");
+      console.log("Start of fetch")
+
+      const response = await FrontPageService.httpClient.get<FrontPageData[]>("");
+      console.log("response")
+
+      console.log(response)
+      //return []
       return response.data
     }catch(error){
       console.log(error)

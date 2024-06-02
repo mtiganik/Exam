@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import BootstrapActivation from "@/components/BootstrapActionvation";
 import "./globals.css";
-
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { UserState } from "@/state/UserState";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -18,9 +20,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+      <UserState>
+
+        <Header />
         {children}
+        <Footer />
         <BootstrapActivation />
-        </body>
+        </UserState>
+
+      </body>
     </html>
   );
 }
