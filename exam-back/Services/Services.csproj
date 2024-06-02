@@ -11,4 +11,10 @@
     <ProjectReference Include="..\MigrationProject\MigrationProject.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTO\" />
+    <Folder Include="Implementation\" />
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+
 </Project>
