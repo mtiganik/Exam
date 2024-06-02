@@ -20,6 +20,6 @@ namespace Domain.Identity
 
         public ICollection<AppRefreshToken>? RefreshTokens { get; set; }
 
-        public ICollection<UserInSubject> UsersInSubject { get; set; } = default!;
+        public ICollection<Todo> UserTodos { get; set; } = default!;
     }
 }

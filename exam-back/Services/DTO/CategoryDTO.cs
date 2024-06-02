@@ -1,16 +1,16 @@
-﻿using Domain.Base;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain
+namespace Services.DTO
 {
-    public class TodoCategory : BaseEntityId
+    public class CategoryDTO
     {
+        public Guid? Id { get; set; }
         public string CategoryName { get; set; } = default!;
         public int? CategorySort { get; set; } = default!;
-        public ICollection<TodoCategory>? TodoCategories { get; set; }
+
     }
 }
