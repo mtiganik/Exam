@@ -95,6 +95,21 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 
+string testOrigins = "DevelopOrigins";
+string[] allowedTestOrigins = {
+    "http://localhost:3000",
+};
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: testOrigins,
+        policy =>
+        {
+            //policy.AllowAnyOrigin().AllowAnyMethod();
+            policy.WithOrigins(allowedTestOrigins).AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+        });
+});
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -102,6 +117,9 @@ builder.Services.AddControllersWithViews();
 var app = builder.Build();
 
 await SeedData.SetupAppData(app);
+
+app.UseCors(testOrigins);
+
 
 app.UseSwagger();
 app.UseSwaggerUI(options =>
