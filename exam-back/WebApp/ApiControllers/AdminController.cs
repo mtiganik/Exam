@@ -74,8 +74,8 @@ namespace WebApp.ApiControllers
                 {
                     return BadRequest("User not found");
                 }
-                var res = _userManager.DeleteAsync(user);
-                return Ok(res);
+                await _userManager.DeleteAsync(user);
+                return Ok("user deleted");
             }catch(Exception ex)
             {
                 return BadRequest(ex.Message);
