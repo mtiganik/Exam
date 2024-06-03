@@ -14,12 +14,13 @@ return(
             <nav className="navbar navbar-expand-sm navbar-toggleable-sm navbar-light  box-shadow mb-3">
                 <div className="container">
                     <a className="navbar-brand col-md-3" href="/">
-                      <Image height={100} src={Logo} alt="logo" />
+                      <Image height={50} priority={true} src={Logo} alt="logo" />
                     </a>
                     {/* <button className="btn btn-success">Hello</button> */}
                         <Identity />
                 </div>
             </nav>
+            <hr/>
         </header>
   </>
 )

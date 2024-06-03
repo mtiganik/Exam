@@ -13,8 +13,17 @@ export default function Login() {
   const handleLogin =async() =>{
     try{
       var res = await LoginService.Login(email,pw)
+      console.log(res)
       setUserData(res)
-      router.push("/my-subjects");
+      if(res.role.includes("admin")){
+        router.push("/admin")
+      }
+      else if(res.role.includes("su")){
+        router.push("/su")
+      }else{
+        router.push("/user")
+      }
+
     }catch(error){
       console.log(error)
     }
@@ -23,8 +32,10 @@ export default function Login() {
     <div>
       <label>Email</label>
       <input type="email" placeholder="email" onChange={(e) => setEmail(e.target.value)}></input>
+      <br/>
       <label>Password</label>
       <input type="password" placeholder="password" onChange={(e) => setPw(e.target.value)}></input>
+      <br/>
       <button className="btn btn-success" onClick={handleLogin}>Login</button>
     </div>
   )

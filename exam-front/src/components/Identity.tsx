@@ -18,13 +18,23 @@ const LoggedIn = () => {
     <div className="navbar">
       <div className="nav-item"style={{marginLeft:"10px"}}>
         <Link href="/" className="nav-link text-dark" > {userData?.userName}</Link>
-      </div>
+      </div> |
+      {userData?.role.includes("admin") && (
+        <>
       <div className="nav-item"style={{marginLeft:"10px"}}>
-        <Link href="/homeworkss" className="nav-link text-dark">Homeworks</Link>
-      </div>
+        <Link href="/admin" className="nav-link text-dark">Admin</Link>
+      </div>|</>
+      )}
+      {(userData?.role.includes("admin") || userData?.role.includes("su")) && (
+<>
       <div className="nav-item"style={{marginLeft:"10px"}}>
-        <Link href="/my-subjects" className="nav-link text-dark"> My Subjects</Link>
-      </div>
+        <Link href="/su" className="nav-link text-dark"> SU</Link>
+      </div>|</>
+      )}
+      <div className="nav-item"style={{marginLeft:"10px"}}>
+        <Link href="/user" className="nav-link text-dark"> TODO</Link>
+      </div>|
+
 
       <div className="nav-item">
         <Link href="/" onClick={(e) => doLogout()} className="nav-link text-dark">Logout</Link>
@@ -36,9 +46,14 @@ const LoggedIn = () => {
 const LoggedOut = () => {
 
   return (
-    <li className="nav-item">
+    <>
+    <ul className="nav-item">
             <Link href="/login" className="nav-link text-dark" >Login</Link>
-        </li>
+        </ul>
+            <ul className="nav-item">
+            <Link href="/register" className="nav-link text-dark" >Register</Link>
+        </ul>
+        </>
 
   )
 }

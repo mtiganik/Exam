@@ -32,7 +32,7 @@ namespace WebApp.SeedData
                 var admin = new AppUser()
                 {
                     Email = "mtiganik@gmail.com",
-                    UserName = "mtiganik@gmail.com",
+                    UserName = "mihkel",
                     FirstName = "Mihkel",
                     LastName = "Muhkel"
                 };
