@@ -24,13 +24,18 @@ namespace Services.Implementation
         public async Task<TodoDTO> CreateTodo(TodoDTO TodoDTO)
         {
             var user = await _userGetter.GetCurrentUserAsync();
-            Guid id = (Guid)(TodoDTO.Id == null ? new Guid() : TodoDTO.Id);
+            Guid id = Guid.NewGuid();
+            if(TodoDTO.Id != null)
+            {
+                id = (Guid)TodoDTO.Id;
+            };
             var todo = new Todo()
             {
                 Id = id,
                 TaskName = TodoDTO.TaskName,
                 TaskSort = TodoDTO.TaskSort,
                 AppUserId = user.Id,
+                TodoCategoryId = TodoDTO.TodoCategoryId
             };
             await _context.Todos.AddAsync(todo);
             await _context.SaveChangesAsync();

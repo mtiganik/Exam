@@ -13,7 +13,7 @@ namespace WebApp.ApiControllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
 
     public class AdminController : ControllerBase
     {
@@ -49,14 +49,13 @@ namespace WebApp.ApiControllers
                 var users = await _context.Users.ToListAsync();
                 foreach(var user in users)
                 {
-                    res.Append(new AdminUserData()
+                    res.Add(new AdminUserData()
                     {
                         FirstName = user.FirstName,
                         LastName = user.LastName,
                         UserName = user.UserName,
                         Email = user.Email
-                    }
-                    );
+                    });
                 }
                 return Ok(res);
             }catch(Exception ex)

@@ -4,9 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MigrationProject;
+using Services.Implementation;
+using Services.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using WebApp.Auth;
 using WebApp.SeedData;
+using WebApp2.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,6 +56,9 @@ builder.Services.Configure<IdentityOptions>(options =>
 });
 
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUserGetter, UserGetter>();
+builder.Services.AddScoped<ITodoService, TodoService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
