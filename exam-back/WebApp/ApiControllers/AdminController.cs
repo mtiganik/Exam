@@ -74,6 +74,11 @@ namespace WebApp.ApiControllers
                 {
                     return BadRequest("User not found");
                 }
+                var roles = await _userManager.GetRolesAsync(user);
+                if (roles.Contains("admin"))
+                {
+                    return BadRequest("You cannot delete an admin");
+                }
                 await _userManager.DeleteAsync(user);
                 return Ok("user deleted");
             }catch(Exception ex)

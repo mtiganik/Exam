@@ -1,7 +1,7 @@
 import { AdminUD } from "@/domain/adminUserData";
 import axiosInstance from "./axiosInstance";
 import { baseUrl } from "./baseUrl";
-
+import { AdminUserDataWithPw } from "@/domain/adminUserData-w-pw";
 
 // api/Admin/CreateSU
 // api/Admin/GetAllUsers
@@ -11,7 +11,9 @@ export default class AdminService{
 
   static async GetAllUsers(): Promise<AdminUD[]>{
     try{
+      // console.log("get users")
       const res = await axiosInstance.get<AdminUD[]>(baseUrl + "api/Admin/GetAllUsers")
+      // console.log("got users")
       return res.data
     }catch(error){
       console.error(error)
@@ -19,16 +21,9 @@ export default class AdminService{
     }
   }
 
-  static async CreateSuperUser(userdata: AdminUD, pw: string): Promise<void>{
+  static async CreateSuperUser(userdata: AdminUserDataWithPw): Promise<void>{
     try{
-      const payload = {
-        firstName: userdata.firstName,
-        lastName: userdata. lastName,
-        userName: userdata.userName,
-        email: userdata.email,
-        password: pw
-      }
-      const res = await axiosInstance.put(baseUrl + "api/Admin/CreateSU", payload)
+      const res = await axiosInstance.put(baseUrl + "api/Admin/CreateSU", userdata)
       console.log("succesfully created user")
     }catch (error) {
       // Handle the error as needed

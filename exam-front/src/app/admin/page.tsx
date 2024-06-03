@@ -2,6 +2,9 @@
 // import { IUserContext, UserContext } from "@/state/UserContext";
 import { IUserContext, UserContext } from "@/state/UserContext";
 import { useState, useContext } from "react";
+import Hello from "./hello";
+// import Users from "./user/users";
+import Users from "./user/users";
 const Admin = () => {
   const [hello, setHello] = useState();
   const { userData } = useContext(UserContext) as IUserContext;
@@ -11,6 +14,14 @@ const Admin = () => {
   return(
     <>
     <p>Admin page</p>
+    <div className="container row">
+      <div className="col-md-6">
+      <Users />
+      </div>
+      <div className="col-md-6">
+      <Hello />
+      </div>
+    </div>
     </>
   )
 }
