@@ -1,0 +1,33 @@
+version: '3.1'
+
+services:
+  pg-live:
+    image: postgres:16
+    container_name: pg-live
+    restart: always
+    environment:
+      POSTGRES_USER: kahku_live
+      POSTGRES_PASSWORD: 0ShT8szA7s39hhp
+      POSTGRES_DB: kahku_live
+    volumes:
+      - pgdata-live:/var/lib/postgresql/data
+    ports:
+      - "7891:5432"
+
+
+  pg-test:
+    image: postgres:16
+    container_name: pg-test
+    restart: always
+    environment:
+      POSTGRES_USER: kahku_test
+      POSTGRES_PASSWORD: 6pPHOoTOsPG96OH
+      POSTGRES_DB: kahku_test
+    volumes:
+      - pgdata-test:/var/lib/postgresql/data
+    ports:
+      - "7892:5432"
+
+volumes:
+  pgdata-live:
+  pgdata-test:

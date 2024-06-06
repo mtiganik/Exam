@@ -1,3 +1,3 @@
 
-export const baseUrl:string = "http://localhost:5299/";// dc
+export const baseUrl:string = "http://localhost:5299/";// dc2
 
