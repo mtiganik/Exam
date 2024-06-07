@@ -27,9 +27,40 @@ namespace WebApp.ServiceImplementation
             _authService = authService;
         }
 
-        public async Task<ShuffleResultDTO> ExecuteShuffle()
+        public async Task<IEnumerable<ShuffleResultDTO>> ExecuteShuffle()
         {
-            throw new NotImplementedException();
+            var curruser = await _userGetter.GetCurrentUserAsync();
+            var company = await _context.Companies.Where(u => u.Id == curruser.Id).FirstOrDefaultAsync();
+
+            var companyUsersToPlay = await _context.Users
+                .Where(u => u.CompanyId == company.Id && u.ActivityMinutes >= company.ActivityMinutes).ToListAsync();
+
+            var items = await _context.Items
+                .Where(u => u.IsGivenOut == false && u.CompanyId == company.Id).ToListAsync();
+            var usersCnt = companyUsersToPlay.Count();
+            var itemsCnt = items.Count();
+            if(usersCnt < 2)
+            {
+                throw new Exception("Atleast 2 users has to be in company to play");
+            }
+            if(itemsCnt == 0)
+            {
+                throw new Exception("No gifts to give out");
+            }
+            var iteration = usersCnt < itemsCnt ? usersCnt : itemsCnt;
+            List<ShuffleResultDTO> res = new List<ShuffleResultDTO>();
+            for(int i = 0; i < iteration; i++)
+            {
+                items[i].IsGivenOut = true;
+                items[i].UserToGiveOutId = companyUsersToPlay[i].Id;
+                res.Add(new ShuffleResultDTO()
+                {
+                    GiftReceived = items[i].ItemName,
+                    UserName = companyUsersToPlay[i].UserName
+                });
+            }
+            await _context.SaveChangesAsync();
+            return res;
         }
 
         public async Task<IEnumerable<ItemDTO>> AddItems(List<string> inputArr)

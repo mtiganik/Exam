@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.DTO;
+using Services.DTO.User;
 using Services.Interfaces;
 
 namespace WebApp.ApiControllers
@@ -13,73 +14,20 @@ namespace WebApp.ApiControllers
 
     public class UserController : ControllerBase
     {
-        private readonly ITodoService _todoService;
-        private readonly ICategoryService _categoryService;
-
-        public UserController(ITodoService todoService, ICategoryService categoryService)
+        private readonly IUserService _userService;
+        public UserController(IUserService userService)
         {
-            _todoService = todoService;
-            _categoryService = categoryService;
+            _userService = userService;
+
         }
 
-        [HttpGet("AllCategories")]
-        public async Task<ActionResult<List<CategoryDTO>>> AllCategories()
-        {
-            try
-            {
-                var res = await _categoryService.GetAllCategories();
-                return Ok(res);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
 
-        [HttpGet("CategoryById")]
-        public async Task<ActionResult<CategoryDTO>> GetCategoryById(Guid id)
+        [HttpPut("LogWork")]
+        public async Task<ActionResult<int>> LogWork(int minutes)
         {
             try
             {
-                var res = await _categoryService.GetCategoryById(id);
-                return Ok(res);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpGet("allTodos")]
-        public async Task<ActionResult<List<TodoDTO>>> getAlltodos()
-        {
-            try
-            {
-                var res = await _todoService.GetAll();
-                return Ok(res);
-            }catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpGet("GetTodoById")]
-        public async Task<ActionResult<TodoDTO>> GetById(Guid id)
-        {
-            try
-            {
-                var res = await _todoService.GetById(id);
-                return Ok(res);
-            }catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPut("UpdateTodo")]
-        public async Task<ActionResult<TodoDTO>> UpdateTodo(TodoDTO dto)
-        {
-            try
-            {
-                var res = await _todoService.Update(dto);
+                var res = await _userService.LogWork(minutes);
                 return Ok(res);
             }catch(Exception ex)
             {
@@ -87,12 +35,14 @@ namespace WebApp.ApiControllers
             }
         }
 
-        [HttpPost("CreateTodo")]
-        public async Task<ActionResult<TodoDTO>> CreateTodo(TodoDTO dto)
+
+
+        [HttpGet("GetYourItems")]
+        public async Task<ActionResult<List<string>>> GetYourItems()
         {
             try
             {
-                var res = await _todoService.CreateTodo(dto);
+                var res = await _userService.GetYourItems();
                 return Ok(res);
             }catch(Exception ex)
             {
@@ -100,17 +50,22 @@ namespace WebApp.ApiControllers
             }
         }
 
-        [HttpDelete("DeleteTodo")]
-        public async Task<ActionResult<TodoDTO>> DeleteTodo(Guid id)
+
+        [HttpGet("GetCompanyUsers")]
+        public async Task<ActionResult<UserUsersDTO>> GetCompanyUsers()
         {
             try
             {
-                var res =await _todoService.DeleteTodo(id);
+                var res = await _userService.GetCompanyUsers();
                 return Ok(res);
             }catch(Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
+
+
+
+
     }
 }

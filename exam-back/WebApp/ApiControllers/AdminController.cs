@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MigrationProject;
+using Services.DTO.Admin;
+using Services.Interfaces;
 using WebApp.Auth;
 using WebApp.Auth.DTOs;
 
@@ -17,22 +19,20 @@ namespace WebApp.ApiControllers
 
     public class AdminController : ControllerBase
     {
-        private readonly IAuthService _authService;
-        private readonly AppDbContext _context;
-        private readonly UserManager<AppUser> _userManager;
-        public AdminController(IAuthService authService, AppDbContext context, UserManager<AppUser> userManager)
+        private readonly IAdminService _adminService;
+        public AdminController(IAdminService adminService)
         {
-            _authService = authService;
-            _context = context;
-            _userManager = userManager;
+            _adminService = adminService;
         }
 
-        [HttpPut("CreateSU")]
-        public async Task<ActionResult> CreateSU([FromBody] RegisterInfo info)
+
+
+        [HttpPut("AddCompany")]
+        public async Task<ActionResult<AdminCompanyDTO>> AddCompany([FromBody] AdminCompanyDTO company)
         {
             try
             {
-                var res = await _authService.Register(info, "su");
+                var res = await _adminService.CompanyAdd(company);
                 return Ok(res);
             }catch(Exception ex)
             {
@@ -40,23 +40,13 @@ namespace WebApp.ApiControllers
             }
         }
 
-        [HttpGet("GetAllUsers")]
-        public async Task<ActionResult<List<AdminUserData>>> GetAllUsers()
+
+        [HttpGet("GetAllCompanies")]
+        public async Task<ActionResult<List<AdminCompanyDTO>>> GetAllCompanies()
         {
             try
             {
-                var res = new List<AdminUserData>();
-                var users = await _context.Users.ToListAsync();
-                foreach(var user in users)
-                {
-                    res.Add(new AdminUserData()
-                    {
-                        FirstName = user.FirstName,
-                        LastName = user.LastName,
-                        UserName = user.UserName,
-                        Email = user.Email
-                    });
-                }
+                var res = await _adminService.GetAllCompanies();
                 return Ok(res);
             }catch(Exception ex)
             {
@@ -64,23 +54,28 @@ namespace WebApp.ApiControllers
             }
         }
 
-        [HttpDelete("DeleteUser")]
-        public async Task<ActionResult> DeleteUser(AdminUserData data)
+
+
+        [HttpDelete("CompanyDelete")]
+        public async Task<ActionResult> CompanyDelete(Guid Id)
         {
             try
             {
-                var user = await _userManager.FindByEmailAsync(data.Email);
-                if(user == null)
-                {
-                    return BadRequest("User not found");
-                }
-                var roles = await _userManager.GetRolesAsync(user);
-                if (roles.Contains("admin"))
-                {
-                    return BadRequest("You cannot delete an admin");
-                }
-                await _userManager.DeleteAsync(user);
+                await _adminService.CompanyDelete(Id);
                 return Ok("user deleted");
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("CompanyUpdate")]
+        public async Task<ActionResult<AdminCompanyDTO>> CompanyUpdate(AdminCompanyDTO company)
+        {
+            try
+            {
+                var res = await _adminService.CompanyUpdate(company);
+                return Ok(res);
             }catch(Exception ex)
             {
                 return BadRequest(ex.Message);
