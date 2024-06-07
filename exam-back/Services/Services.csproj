@@ -11,4 +11,8 @@
     <ProjectReference Include="..\MigrationProject\MigrationProject.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Implementation\" />
+  </ItemGroup>
+
 </Project>

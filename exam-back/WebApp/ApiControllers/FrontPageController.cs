@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Services.Interfaces;
 
 namespace WebApp.ApiControllers
 {
@@ -7,18 +8,23 @@ namespace WebApp.ApiControllers
     [ApiController]
     public class FrontPageController : ControllerBase
     {
+        private readonly IFrontPageService _frontPageService;
+        public FrontPageController(IFrontPageService frontPageService)
+        {
+            _frontPageService = frontPageService;
+        }
 
         [HttpGet("frontPageGet")]
         public ActionResult<List<string>> GetFrontPageData()
         {
-            var res = new List<string>()
+            try
             {
-                "hello",
-                "World",
-                "three",
-                "Times"
-            };
-            return Ok(res);
+                var res = _frontPageService.GetPublicCompanies();
+                return Ok(res);
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

@@ -33,8 +33,6 @@ namespace WebApp.SeedData
                 {
                     Email = "mtiganik@gmail.com",
                     UserName = "mihkel",
-                    FirstName = "Mihkel",
-                    LastName = "Muhkel"
                 };
                 admin.Id = new Guid("ddcefa48-5a53-48fb-9d12-85636ff2c55e");
                 await userManager.CreateAsync(admin, "qwerty");

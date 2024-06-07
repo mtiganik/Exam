@@ -140,8 +140,6 @@ namespace WebApp.Auth
             {
                 Jwt = jwt,
                 RefreshToken = refreshToken.RefreshToken,
-                FirstName = appUser.FirstName,
-                LastName = appUser.LastName,
                 Email = appUser.Email!,
                 UserName = appUser.UserName!,
                 Role = roles.ToArray()
