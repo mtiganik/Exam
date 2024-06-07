@@ -213,6 +213,7 @@ namespace WebApp.Auth
                 UserName = model.UserName,
                 RefreshTokens = new List<AppRefreshToken>() { refreshToken },
                 CompanyId = model.CompanyId,
+                ActivityMinutes = 10
             };
             refreshToken.AppUser = appUser;
             return (appUser, refreshToken);

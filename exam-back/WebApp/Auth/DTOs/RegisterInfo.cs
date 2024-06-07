@@ -2,8 +2,8 @@
 {
     public class RegisterInfo
     {
-        public string FirstName { get; set; } = default!;
-        public string LastName { get; set; } = default!;
+        //public string FirstName { get; set; } = default!;
+        //public string LastName { get; set; } = default!;
         public string UserName { get; set; } = default!;
         public string Email { get; set; } = default!;
 

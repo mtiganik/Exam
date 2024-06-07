@@ -17,8 +17,9 @@ namespace Domain.Identity
         //[MinLength(1)]
         //[MaxLength(64)]
         //public string LastName { get; set; } = default!;
-
+        public int ActivityMinutes { get; set; }
         public ICollection<AppRefreshToken>? RefreshTokens { get; set; }
+        public ICollection<Item>? Items { get; set; }
 
         //public ICollection<Todo> UserTodos { get; set; } = default!;
         public Guid CompanyId { get; set; }

@@ -13,12 +13,12 @@ namespace Services.Interfaces
         Task<IEnumerable<ItemDTO>> AddItems (List<string> items);
         Task<IEnumerable<ItemDTO>> GetItems();
         Task<ItemDTO> EditItem (ItemDTO item);
-        Task<ItemDTO> DeleteItem (ItemDTO item);
+        Task DeleteItem (Guid Ii);
         Task<ShuffleResultDTO> ExecuteShuffle();
 
         Task<UserDTO> CreateUser(UserCreateDTO user);
         Task<UserDTO> UpdateUser(UserDTO user);
-        Task<IEnumerable> GetAllUsers();
-        Task<UserDTO> DeteleUser(Guid guid);
+        Task<IEnumerable<UserDTO>> GetAllUsers();
+        Task DeteleUser(Guid guid);
     }
 }

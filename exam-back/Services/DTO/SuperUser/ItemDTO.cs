@@ -10,7 +10,7 @@ namespace Services.DTO.SuperUser
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public bool IsGivenOut { get; set; }
+        public bool? IsGivenOut { get; set; }
         public Guid? UserToGiveOutId { get; set; } = default!;
 
     }
