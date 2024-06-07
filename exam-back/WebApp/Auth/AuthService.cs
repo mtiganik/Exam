@@ -153,12 +153,17 @@ namespace WebApp.Auth
         {
             var claimsPrincipal = await _signInManager.CreateUserPrincipalAsync(appUser);
             var jwt = GenerateJwt(claimsPrincipal.Claims, _jwtAuthConfig);
+            var roles = await _userManager.GetRolesAsync(appUser);
+
             var res = new JWTResponse()
             {
                 Jwt = jwt,
                 RefreshToken = refreshToken.RefreshToken,
                 UserName = appUser.UserName!.Split("_")[0],
                 Email = appUser.Email!,
+                CompanyId = appUser.CompanyId,
+                Role = roles.ToArray(),
+
             };
             return res;
         }

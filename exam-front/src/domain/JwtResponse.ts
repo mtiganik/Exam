@@ -3,8 +3,6 @@ export interface JwtResponse{
   "refreshToken": string;
   "userName": string;
   "email": string;
-  "firstName": string;
-  "lastName": string;
   "role": string[];
-
+  "companyId": string;
 }

@@ -6,13 +6,12 @@ import { useRouter } from "next/navigation";
 
 export default function Register() {
   const [userName, setUserName] = useState("")
-  const [firstName, setFirstName] = useState("firstName")
-  const [lastName, setLastName] = useState("lastName")
   const [email,setEmail] = useState("");
   const [pw, setPw] = useState("");
   const [pwConfirm, setPwConfirm] = useState("")
   const router = useRouter();
   const [errors, setErrors] = useState("")
+  const [companyId, setCompanyId] = useState("");
   const { userData, setUserData } = useContext(UserContext) as IUserContext;
 
   const handleRegister=async() => {
@@ -22,7 +21,7 @@ export default function Register() {
       return;
     }
     try{
-      const res = await LoginService.Register(userName,firstName,lastName,email,pw)
+      const res = await LoginService.Register(userName,companyId,email,pw)
       setUserData(res)
       router.push("/user")
 
@@ -35,15 +34,13 @@ export default function Register() {
     <label>username</label>
     <input type="text" placeholder="userName" value={userName} onChange={(e) => setUserName(e.target.value)}></input>
     <br/>
-    <label>first name</label>
-    <input type="text" placeholder="firstname" value={firstName} onChange={(e) => setFirstName(e.target.value)}></input>
-    <br/>
-    <label>last name</label>
-    <input type="text" placeholder="lastname" value={lastName} onChange={(e) => setLastName(e.target.value)}></input>
-    <br/>
     <label>email</label>
     <input type="text" placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
     <br/>
+    <label>Company Id:</label>
+    <input type="text" placeholder="add Id of company here" value={companyId} onChange={(e) => setCompanyId(e.target.value)}></input>
+    <br/>
+
     <label>password</label>
     <input type="password" placeholder="pw" value={pw} onChange={(e) => setPw(e.target.value)}></input>
     <br/>

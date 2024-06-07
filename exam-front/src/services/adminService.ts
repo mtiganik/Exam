@@ -1,29 +1,30 @@
-import { AdminUD } from "@/domain/adminUserData";
+// import { AdminUD } from "@/domain/adminUserData";
 import axiosInstance from "./axiosInstance";
 import { baseUrl } from "./baseUrl";
-import { AdminUserDataWithPw } from "@/domain/adminUserData-w-pw";
+// import { AdminUserDataWithPw } from "@/domain/adminUserData-w-pw";
+import AdminCompany from "@/domain/adminCompany";
 
-// api/Admin/CreateSU
-// api/Admin/GetAllUsers
-// api/Admin/DeleteUser
+// api/Admin/GetAllCompanies
+// api/Admin/CompanyDelete
+// api/Admin/CompanyUpdate
 export default class AdminService{
   private constructor(){}
 
-  static async GetAllUsers(): Promise<AdminUD[]>{
+  static async GetAllCompanies(): Promise<AdminCompany[]>{
     try{
-      // console.log("get users")
-      const res = await axiosInstance.get<AdminUD[]>(baseUrl + "api/Admin/GetAllUsers")
-      // console.log("got users")
+      const res = await axiosInstance.get<AdminCompany[]>(baseUrl + "api/Admin/GetAllCompanies")
+      console.log(res)
       return res.data
     }catch(error){
       console.error(error)
       return []
     }
   }
+// api/Admin/AddCompany
 
-  static async CreateSuperUser(userdata: AdminUserDataWithPw): Promise<void>{
+  static async AddCompany(userdata: AdminCompany): Promise<void>{
     try{
-      const res = await axiosInstance.put(baseUrl + "api/Admin/CreateSU", userdata)
+      const res = await axiosInstance.put(baseUrl + "api/Admin/AddCompany", userdata)
       console.log("succesfully created user")
     }catch (error) {
       // Handle the error as needed
@@ -32,8 +33,10 @@ export default class AdminService{
     }
   }
 
-  static async DeleteUser(userData: AdminUD): Promise<void>{
-    await axiosInstance.delete(baseUrl + "api/Admin/DeleteUser", {
+  // api/Admin/CompanyDelete
+
+  static async DeleteCompany(userData: AdminCompany): Promise<void>{
+    await axiosInstance.delete(baseUrl + "api/Admin/CompanyDelete", {
       data: userData});
   }
 }

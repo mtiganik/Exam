@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Services.DTO.FrontPage;
 using Services.Interfaces;
 
 namespace WebApp.ApiControllers
@@ -15,11 +16,11 @@ namespace WebApp.ApiControllers
         }
 
         [HttpGet("frontPageGet")]
-        public ActionResult<List<string>> GetFrontPageData()
+        public async Task<ActionResult<List<FrontPageDTO>>> GetFrontPageData()
         {
             try
             {
-                var res = _frontPageService.GetPublicCompanies();
+                var res = await _frontPageService.GetPublicCompanies();
                 return Ok(res);
             }catch(Exception ex)
             {

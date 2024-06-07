@@ -32,7 +32,7 @@ const LoggedIn = () => {
       </div>|</>
       )}
       <div className="nav-item"style={{marginLeft:"10px"}}>
-        <Link href="/user" className="nav-link text-dark"> TODO</Link>
+        <Link href="/user" className="nav-link text-dark"> Company</Link>
       </div>|
 
 

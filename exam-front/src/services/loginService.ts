@@ -10,13 +10,12 @@ export default class LoginService{
   private static httpClient = axios.create({
     baseURL: baseUrl + "api/Account"
   });
-  static async Register( userName: string, firstName:string, lastName:string, email:string, password:string):Promise<JwtResponse>{
+  static async Register( userName: string, companyId:string, email:string, password:string):Promise<JwtResponse>{
     try{
       const response = 
       await LoginService.httpClient.post<JwtResponse>("/Register",{
         userName: userName,
-        firstName: firstName,
-        lastName: lastName,
+        companyId: companyId,
         email: email,
         password: password
       });
