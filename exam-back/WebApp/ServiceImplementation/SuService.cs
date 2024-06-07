@@ -30,7 +30,7 @@ namespace WebApp.ServiceImplementation
         public async Task<IEnumerable<ShuffleResultDTO>> ExecuteShuffle()
         {
             var curruser = await _userGetter.GetCurrentUserAsync();
-            var company = await _context.Companies.Where(u => u.Id == curruser.Id).FirstOrDefaultAsync();
+            var company = await _context.Companies.Where(u => u.Id == curruser.CompanyId).FirstOrDefaultAsync();
 
             var companyUsersToPlay = await _context.Users
                 .Where(u => u.CompanyId == company.Id && u.ActivityMinutes >= company.ActivityMinutes).ToListAsync();

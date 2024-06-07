@@ -207,6 +207,7 @@ namespace WebApp.Auth
             var refreshToken = new AppRefreshToken();
             var appUser = new AppUser()
             {
+                //Id = Guid.NewGuid(),
                 Email = model.Email,
                 UserName = model.UserName,
                 RefreshTokens = new List<AppRefreshToken>() { refreshToken },

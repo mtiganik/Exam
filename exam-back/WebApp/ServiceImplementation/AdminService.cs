@@ -25,7 +25,7 @@ namespace WebApp.ServiceImplementation
 
         public async Task<AdminCompanyDTO> CompanyAdd(AdminCompanyDTO company)
         {
-            Guid guid = (Guid)(company.Id == null ? company.Id : Guid.NewGuid())!;
+            Guid guid = company.Id ?? Guid.NewGuid();
             company.Id = guid;
             Company newCompany = new Company()
             {
