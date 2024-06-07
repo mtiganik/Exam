@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MigrationProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240602160636_initial")]
+    [Migration("20240607114520_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -24,6 +24,49 @@ namespace MigrationProject.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("Domain.Company", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("ActivityMinutes")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("CompanyName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsPublic")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("Sort1")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Sort2")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("SuEmail")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("SuName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("SuPw")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Tag")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Companies");
+                });
 
             modelBuilder.Entity("Domain.Identity.AppRefreshToken", b =>
                 {
@@ -92,6 +135,12 @@ namespace MigrationProject.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
 
+                    b.Property<int>("ActivityMinutes")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("CompanyId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("text");
@@ -102,16 +151,6 @@ namespace MigrationProject.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("character varying(64)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("character varying(64)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
@@ -148,6 +187,8 @@ namespace MigrationProject.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CompanyId");
+
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -173,58 +214,35 @@ namespace MigrationProject.Migrations
                     b.ToTable("AspNetUserRoles", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Todo", b =>
+            modelBuilder.Entity("Domain.Item", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("AppUserId")
+                    b.Property<Guid?>("AppUserId")
                         .HasColumnType("uuid");
 
-                    b.Property<bool>("IsCompleted")
+                    b.Property<Guid>("CompanyId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("IsGivenOut")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("TaskName")
+                    b.Property<string>("ItemName")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("TaskSort")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("TodoCategoryId")
+                    b.Property<Guid?>("UserToGiveOutId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
 
-                    b.HasIndex("TodoCategoryId");
+                    b.HasIndex("CompanyId");
 
-                    b.ToTable("Todos");
-                });
-
-            modelBuilder.Entity("Domain.TodoCategory", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("CategoryName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int?>("CategorySort")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid?>("TodoCategoryId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TodoCategoryId");
-
-                    b.ToTable("TodoCategories");
+                    b.ToTable("Items");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -326,6 +344,17 @@ namespace MigrationProject.Migrations
                     b.Navigation("AppUser");
                 });
 
+            modelBuilder.Entity("Domain.Identity.AppUser", b =>
+                {
+                    b.HasOne("Domain.Company", "Company")
+                        .WithMany("AppUsers")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+                });
+
             modelBuilder.Entity("Domain.Identity.AppUserRole", b =>
                 {
                     b.HasOne("Domain.Identity.AppRole", null)
@@ -341,30 +370,21 @@ namespace MigrationProject.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Domain.Todo", b =>
+            modelBuilder.Entity("Domain.Item", b =>
                 {
                     b.HasOne("Domain.Identity.AppUser", "AppUser")
-                        .WithMany("UserTodos")
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Items")
+                        .HasForeignKey("AppUserId");
 
-                    b.HasOne("Domain.TodoCategory", "Category")
-                        .WithMany()
-                        .HasForeignKey("TodoCategoryId")
+                    b.HasOne("Domain.Company", "Company")
+                        .WithMany("Items")
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("AppUser");
 
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("Domain.TodoCategory", b =>
-                {
-                    b.HasOne("Domain.TodoCategory", null)
-                        .WithMany("TodoCategories")
-                        .HasForeignKey("TodoCategoryId");
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -403,16 +423,18 @@ namespace MigrationProject.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Domain.Identity.AppUser", b =>
+            modelBuilder.Entity("Domain.Company", b =>
                 {
-                    b.Navigation("RefreshTokens");
+                    b.Navigation("AppUsers");
 
-                    b.Navigation("UserTodos");
+                    b.Navigation("Items");
                 });
 
-            modelBuilder.Entity("Domain.TodoCategory", b =>
+            modelBuilder.Entity("Domain.Identity.AppUser", b =>
                 {
-                    b.Navigation("TodoCategories");
+                    b.Navigation("Items");
+
+                    b.Navigation("RefreshTokens");
                 });
 #pragma warning restore 612, 618
         }

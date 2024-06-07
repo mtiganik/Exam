@@ -27,49 +27,23 @@ namespace MigrationProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUsers",
+                name: "Companies",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    FirstName = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
-                    LastName = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
-                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
-                    PasswordHash = table.Column<string>(type: "text", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
+                    CompanyName = table.Column<string>(type: "text", nullable: false),
+                    IsPublic = table.Column<bool>(type: "boolean", nullable: false),
+                    SuName = table.Column<string>(type: "text", nullable: false),
+                    SuEmail = table.Column<string>(type: "text", nullable: false),
+                    SuPw = table.Column<string>(type: "text", nullable: false),
+                    ActivityMinutes = table.Column<int>(type: "integer", nullable: false),
+                    Sort1 = table.Column<int>(type: "integer", nullable: false),
+                    Sort2 = table.Column<int>(type: "integer", nullable: false),
+                    Tag = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TodoCategories",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CategoryName = table.Column<string>(type: "text", nullable: false),
-                    CategorySort = table.Column<int>(type: "integer", nullable: true),
-                    TodoCategoryId = table.Column<Guid>(type: "uuid", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TodoCategories", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TodoCategories_TodoCategories_TodoCategoryId",
-                        column: x => x.TodoCategoryId,
-                        principalTable: "TodoCategories",
-                        principalColumn: "Id");
+                    table.PrimaryKey("PK_Companies", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -89,6 +63,39 @@ namespace MigrationProject.Migrations
                         name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    ActivityMinutes = table.Column<int>(type: "integer", nullable: false),
+                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    PasswordHash = table.Column<string>(type: "text", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -179,6 +186,33 @@ namespace MigrationProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Items",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    ItemName = table.Column<string>(type: "text", nullable: false),
+                    IsGivenOut = table.Column<bool>(type: "boolean", nullable: false),
+                    UserToGiveOutId = table.Column<Guid>(type: "uuid", nullable: true),
+                    AppUserId = table.Column<Guid>(type: "uuid", nullable: true),
+                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Items", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Items_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Items_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RefreshTokens",
                 columns: table => new
                 {
@@ -196,34 +230,6 @@ namespace MigrationProject.Migrations
                         name: "FK_RefreshTokens_AspNetUsers_AppUserId",
                         column: x => x.AppUserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Todos",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    TaskName = table.Column<string>(type: "text", nullable: false),
-                    TaskSort = table.Column<int>(type: "integer", nullable: true),
-                    IsCompleted = table.Column<bool>(type: "boolean", nullable: false),
-                    AppUserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    TodoCategoryId = table.Column<Guid>(type: "uuid", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Todos", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Todos_AspNetUsers_AppUserId",
-                        column: x => x.AppUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Todos_TodoCategories_TodoCategoryId",
-                        column: x => x.TodoCategoryId,
-                        principalTable: "TodoCategories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -260,30 +266,30 @@ namespace MigrationProject.Migrations
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_CompanyId",
+                table: "AspNetUsers",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Items_AppUserId",
+                table: "Items",
+                column: "AppUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Items_CompanyId",
+                table: "Items",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RefreshTokens_AppUserId",
                 table: "RefreshTokens",
                 column: "AppUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TodoCategories_TodoCategoryId",
-                table: "TodoCategories",
-                column: "TodoCategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Todos_AppUserId",
-                table: "Todos",
-                column: "AppUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Todos_TodoCategoryId",
-                table: "Todos",
-                column: "TodoCategoryId");
         }
 
         /// <inheritdoc />
@@ -305,10 +311,10 @@ namespace MigrationProject.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "RefreshTokens");
+                name: "Items");
 
             migrationBuilder.DropTable(
-                name: "Todos");
+                name: "RefreshTokens");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -317,7 +323,7 @@ namespace MigrationProject.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "TodoCategories");
+                name: "Companies");
         }
     }
 }

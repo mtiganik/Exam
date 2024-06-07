@@ -17,9 +17,9 @@ namespace WebApp.ServiceImplementation
         private readonly AppDbContext _context;
         private readonly IUserGetter _userGetter;
         private readonly UserManager<AppUser> _userManager;
-        private readonly AuthService _authService;
+        private readonly IAuthService _authService;
 
-        public SuService(IUserGetter userGetter, AppDbContext context, UserManager<AppUser> userManager, AuthService authService)
+        public SuService(IUserGetter userGetter, AppDbContext context, UserManager<AppUser> userManager, IAuthService authService)
         {
             _userGetter = userGetter;
             _context = context;

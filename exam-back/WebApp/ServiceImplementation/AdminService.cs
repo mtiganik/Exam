@@ -13,20 +13,12 @@ namespace WebApp.ServiceImplementation
 {
     public class AdminService : IAdminService
     {
-        private readonly UserManager<AppUser> _userManager;
         private readonly AppDbContext _context;
-        private readonly JwtAuthConfig _jwtAuthConfig;
-        private readonly SignInManager<AppUser> _signInManager;
-        private readonly AuthService _authService;
+        private readonly IAuthService _authService;
 
-        public AdminService(UserManager<AppUser> userManager, AppDbContext context,
-IOptions<JwtAuthConfig> jwtAuthConfig, ILogger<AuthService> logger, SignInManager<AppUser> signInManager,
-AuthService authService)
+        public AdminService(AppDbContext context, IAuthService authService)
         {
-            _userManager = userManager;
             _context = context;
-            _jwtAuthConfig = jwtAuthConfig.Value;
-            _signInManager = signInManager;
             _authService = authService;
         }
 

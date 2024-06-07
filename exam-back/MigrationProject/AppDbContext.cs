@@ -13,18 +13,6 @@ namespace MigrationProject
         public DbSet<AppRefreshToken> RefreshTokens { get; set; } = default!;
         public DbSet<Company> Companies { get; set; } = default!;
         public DbSet<Item> Items { get; set; } = default!;
-        //public DbSet<Todo> Todos { get; set; } = default!;
-        //public DbSet<TodoCategory> TodoCategories {get; set;}  = default!;
-        //public DbSet<Grade> Grades { get; set; } = default!;
-        //public DbSet<Homework> Homeworks{ get; set; } = default!;
-        //public DbSet<HwForStudent> HwForStudents { get; set; } = default!;
-        //public DbSet<Semester> Semesters{ get; set; } = default!;
-        //public DbSet<Subject> Subjects{ get; set; } = default!;
-        //public DbSet<UserInSubject> UsersInSubject { get; set; } = default!;
-        //public DbSet<UserRoleInSubject> UsersRoleInSubject { get; set; } = default!;
-        //public DbSet<TodoPriority> TodoPriorities { get; set; } = default!;
-        //public DbSet<TodoCategory> TodoCategories { get; set; } = default!;
-        //public DbSet<Todo> Todos { get; set; } = default!;
 
         public AppDbContext(DbContextOptions options) : base(options)
         {
