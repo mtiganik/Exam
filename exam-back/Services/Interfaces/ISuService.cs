@@ -1,5 +1,6 @@
 ﻿using Services.DTO.SuperUser;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,9 @@ namespace Services.Interfaces
         Task<ItemDTO> DeleteItem (ItemDTO item);
         Task<ShuffleResultDTO> ExecuteShuffle();
 
-        Task<>
+        Task<UserDTO> CreateUser(UserCreateDTO user);
+        Task<UserDTO> UpdateUser(UserDTO user);
+        Task<IEnumerable> GetAllUsers();
+        Task<UserDTO> DeteleUser(Guid guid);
     }
 }

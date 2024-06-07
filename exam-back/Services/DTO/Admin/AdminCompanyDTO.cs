@@ -8,7 +8,7 @@ namespace Services.DTO.Admin
 {
     public class AdminCompanyDTO
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         public string CompanyName { get; set; } = default!;
         public bool IsPublic { get; set; }
         public string SuName { get; set; } = default!;

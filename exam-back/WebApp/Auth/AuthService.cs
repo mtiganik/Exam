@@ -211,9 +211,8 @@ namespace WebApp.Auth
             {
                 Email = model.Email,
                 UserName = model.UserName,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                RefreshTokens = new List<AppRefreshToken>() { refreshToken }
+                RefreshTokens = new List<AppRefreshToken>() { refreshToken },
+                CompanyId = model.CompanyId,
             };
             refreshToken.AppUser = appUser;
             return (appUser, refreshToken);

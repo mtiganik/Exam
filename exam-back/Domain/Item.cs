@@ -12,8 +12,8 @@ namespace Domain
     {
         public string ItemName { get; set; } = default!;
         public bool IsGivenOut { get; set; }
-        public Guid UserToGiveOutId { get; set; } = default!;
-        public AppUser AppUser { get; set; } = default!;
+        public Guid? UserToGiveOutId { get; set; } = default!;
+        public AppUser? AppUser { get; set; } = default!;
         public Guid CompanyId { get; set; } = default!;
         public Company Company { get; set; } = default!;
     }

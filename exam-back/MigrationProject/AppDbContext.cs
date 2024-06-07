@@ -11,8 +11,10 @@ namespace MigrationProject
     IdentityUserToken<Guid>>
     {
         public DbSet<AppRefreshToken> RefreshTokens { get; set; } = default!;
-        public DbSet<Todo> Todos { get; set; } = default!;
-        public DbSet<TodoCategory> TodoCategories {get; set;}  = default!;
+        public DbSet<Company> Companies { get; set; } = default!;
+        public DbSet<Item> Items { get; set; } = default!;
+        //public DbSet<Todo> Todos { get; set; } = default!;
+        //public DbSet<TodoCategory> TodoCategories {get; set;}  = default!;
         //public DbSet<Grade> Grades { get; set; } = default!;
         //public DbSet<Homework> Homeworks{ get; set; } = default!;
         //public DbSet<HwForStudent> HwForStudents { get; set; } = default!;
