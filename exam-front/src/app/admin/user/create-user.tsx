@@ -45,11 +45,11 @@ export default function CreateUser(){
   return(
     <><h3>Create new Company</h3> 
     <input type="input" placeholder="Company name" onChange={(e) => setCn(e.target.value)} />
-    <input type="checkbox" placeholder="IsPublic" checked={isPublic} onChange={() =>setIsPublic(!isPublic)} />
+    <input type="checkbox" placeholder="IsPublic" checked={isPublic} onChange={() =>setIsPublic(!isPublic)} /> is public <br/>
     <input type="input" placeholder="Main user Name" onChange={(e) => setSuN(e.target.value)} />
     <input type="input" placeholder="Main user email" onChange={(e) => setSuEmail(e.target.value)} />
     <input type="input" placeholder="Main user password" onChange={(e) => setSuPw(e.target.value)} />
-    <input type="number" placeholder="activity minutes" onChange={(e) => setSuPw(e.target.value)} />
+    <input type="number" placeholder="activity minutes" onChange={(e) => setActivityMinutes(Number(e.target.value))} />
     <button type="submit" onClick={createSU}>Create</button>
     </>
   )
